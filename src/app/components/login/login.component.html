@@ -41,13 +41,16 @@
 
 
 </div>
+<div class="d-flex align-items-center justify-content-end g-4">
+    <a routerLink='/forgot' class="link-primary" >Forget Password</a>
 
-<button [disabled]=" loginForm.invalid|| isLoading" type="submit" class="btn-main ms-auto d-block">login
+<button [disabled]=" loginForm.invalid|| isLoading" type="submit" class="btn-main ">login
     @if (isLoading) 
     {
         <span> <i class="fas fa-spin fa-spinner"></i></span>
     }
 </button>
+</div>
         @if(megError)
         {
             <p class="alert alert-danger w-50 m-0">{{megError}}</p>

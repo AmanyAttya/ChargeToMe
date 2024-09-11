@@ -8,23 +8,37 @@ import { HomeComponent } from './components/home/home.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ProductComponent } from './components/product/product.component';
+import { authGuard } from './core/auth.guard';
+import { logedGuard } from './core/guards/loged.guard';
+import { DetailsComponent } from './components/details/details.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 
 export const routes: Routes = [
-    {path:'', component:AuthLayoutComponent,
-        children:[
-            {path :'',redirectTo:'login',pathMatch:'full'},
-        {path:'login',component:LoginComponent},
-        {path:'register',component:RegisterComponent}
-    ]},
-    {path:'', component:BlankLayoutComponent,
-        children:[
-        {path:'',redirectTo:'home',pathMatch:'full'},
-        {path:'home', component:HomeComponent},
-        {path:'cart', component:CartComponent},
-        {path:'categories', component:CategoriesComponent},
-        {path:'proudect', component:ProductComponent},
-        {path:'home', component:HomeComponent},
+    {
+        path: '', 
+        component: AuthLayoutComponent, 
+        canActivate: [logedGuard],
+        children: [
+            { path: '', redirectTo: 'login', pathMatch: 'full' },
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+            { path: 'forgot', component: ForgotpasswordComponent }
+        ]
+    },
+    {
+        path: '', 
+        component: BlankLayoutComponent, 
+        canActivate: [authGuard],
+        children: [
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: HomeComponent },
+            { path: 'cart', component: CartComponent },
+            { path: 'categories', component: CategoriesComponent },
+            { path: 'product', component: ProductComponent },
+            { path: 'details/:IdOfProudect', component: DetailsComponent },
+            
 
-    ]},
-    {path:'**', component:NotfoundComponent}
+        ]
+    },
+    { path: '**', component: NotfoundComponent } // Wildcard route for 404 page
 ];

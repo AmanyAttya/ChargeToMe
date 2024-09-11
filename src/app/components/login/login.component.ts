@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './../../core/services/auth.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'] // Corrected from styleUrl to styleUrls
 })
@@ -41,9 +41,10 @@ export class LoginComponent {
               //save token
               localStorage.setItem('userToken',JSON.stringify(res.token))
 console.log(res.token)
-console.log(res)
+            //2-decode Token 
+            this.authService.saveUserdata()
 
-
+             //3- navagite Token
 
               this.router.navigate(['/home']); // Navigate to home instead of login after successful login
             }, 1000);
